@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-web-search-brave",
-  "description": "Brave Search provider plugin for DeepSeek Harness (dsh) — hardened fork that fixes web_search hangs, missing request timeouts, and HTTP 429 rate-limit storms",
+  "description": "Brave Search provider for DeepSeek Harness (dsh) — independent dsh plugin hardened against web_search hangs, missing request timeouts, and HTTP 429 rate-limit storms",
   "version": "0.1.3",
   "keywords": [
     "deepseek-harness",

@@ -4,20 +4,20 @@
 
 # dsh-web-search-brave
 
-**Brave Search provider plugin for DeepSeek Harness (dsh) — a hardened fork that stops
-`web_search` from hanging your session, and stops multi-query searches from drowning in
-HTTP 429 rate limits.**
+**Brave Search provider plugin for DeepSeek Harness (dsh) — hardened so `web_search`
+cannot hang your session, and multi-query searches stop drowning in HTTP 429 rate limits.**
 
-The upstream package `@deepseek-ai/dsh-web-search-brave` gives DeepSeek Harness a Brave
-Search backend for its `ctx.web` capability seam. This fork keeps that drop-in package
-name and API, and fixes two reliability problems that can hang or disable `web_search`
-inside a real agent session.
+An independent implementation of the DeepSeek Harness `ctx.web` search-provider seam. It
+targets the official provider interface and is modeled on the official
+`@deepseek-ai/dsh-web-search-deepseek` provider's structure, which is the documented way to
+write a seam provider. It is **not** a fork of the separately developed
+`dsh-web-search-brave` packages — see [Compatibility](#compatibility).
 
-> **Not affiliated with or endorsed by DeepSeek or the upstream author.** This is an
-> independent fork published under the original MIT license. Upstream is
-> [cnChenKai/dsh-web-search-brave](https://github.com/cnChenKai/dsh-web-search-brave),
-> published on npm as `@deepseek-ai/dsh-web-search-brave`. Do not publish this fork to npm
-> under the `@deepseek-ai` scope — that scope belongs to the upstream project.
+> **Not affiliated with or endorsed by DeepSeek.** The `@deepseek-ai/...` package name
+> follows DeepSeek's first-party naming convention for seam providers; it is not an
+> official DeepSeek package and is never published to npm. The provider interface and
+> module scaffolding derive from the official `@deepseek-ai/dsh-web-search-deepseek`
+> (MIT, © 2026 DeepSeek); the Brave integration is original to this package.
 
 - **Keywords:** DeepSeek Harness, dsh, dsh plugin, Brave Search API, web search provider,
   `web_search` tool, HTTP 429 rate limit, request timeout, agent tool call hang
@@ -50,7 +50,7 @@ free tier that spends the whole budget on 429s:
 | --- | --- |
 | upstream 0.1.1 | **0 of 4 succeeded** (`WEB_PROVIDER_ERROR`, HTTP 429), in 731 ms |
 
-## What this fork changes
+## What this version changes
 
 Three configurable knobs, **all bounded by the same hard deadline** so nothing can hang:
 
@@ -77,7 +77,7 @@ After the fix, on the same live API:
 dsh plugin --profile web add github:nedzen/dsh-web-search-brave
 ```
 
-Or from a local checkout, which is how this fork is developed:
+Or from this local checkout:
 
 ```sh
 dsh plugin --profile web add file:$HOME/Sites/dsh-web-search-brave
@@ -130,7 +130,7 @@ Self-check in a live session — the timing tells you which build is loaded:
 | 4-query `web_search` | Build |
 | --- | --- |
 | returns in under 1 s, usually `HTTP 429` | old 0.1.1 |
-| takes 4.5 s or more, normally succeeds | this fork |
+| takes 4.5 s or more, normally succeeds | this build |
 
 ## Tuning
 
@@ -163,22 +163,29 @@ check for two rows declaring this bundle.
 
 ## Compatibility
 
-**This fork exists for the 0.1.x line.** It targets `@deepseek-ai/dsh-*@^0.1.1-rc.2` peers.
+Targets the **0.1.x** DeepSeek Harness line: `@deepseek-ai/dsh-*@^0.1.1-rc.2` peers. The
+timeout/spacing/retry settings are additive, so dsh 0.2.x should also work — verify against
+your own build rather than assuming.
 
-Upstream **0.2.4** ([cnChenKai/dsh-web-search-brave](https://github.com/cnChenKai/dsh-web-search-brave))
-already added an equivalent `searchTimeoutMs`, so **if you are on dsh 0.2.x, use upstream** —
-it is the maintained package and there is nothing better about this fork on that line. This
-fork is for sessions pinned to 0.1.x that cannot move the whole harness yet.
+**Same name, different plugin.** `dsh-web-search-brave` is also the name of unrelated,
+separately developed packages, e.g.
+[cnChenKai/dsh-web-search-brave](https://github.com/cnChenKai/dsh-web-search-brave) (npm
+`dsh-web-search-brave`, 0.2.4). They are different implementations with incompatible
+configuration: that one registers the provider id `brave` and configures
+`count`/`safesearch`/`textDecorations`; this one registers `brave-search` and configures
+`maxResults`/`searchType`. Pick one, don't wire both into the same profile, and don't expect
+a config to port across.
 
 ## Related
 
-- [cnChenKai/dsh-web-search-brave](https://github.com/cnChenKai/dsh-web-search-brave) — **upstream package** (0.2.4, maintained)
-- [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) — the harness itself
+- [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) — the harness, and the official provider template this follows
 - [0xsline/awesome-deepseek-harness](https://github.com/0xsline/awesome-deepseek-harness) — ecosystem index
 - GitHub topic [`dsh-plugin`](https://github.com/topics/dsh-plugin) — more dsh plugins
 - Other `web_search` backends: [multi-provider](https://github.com/cinob/dsh-web-search-multi), [Exa](https://github.com/TonyDua/dsh-web-search-exa), [SearXNG](https://github.com/acdcgz/dsh-web-search-searxng)
+- Separately developed, same name: [cnChenKai/dsh-web-search-brave](https://github.com/cnChenKai/dsh-web-search-brave)
 
 ## License
 
-MIT, inherited from upstream. Original work © 2026 KaiChan; fork modifications © 2026
-nedzen. See [LICENSE](./LICENSE).
+MIT. Implementation © 2026 nedzen. The provider interface and module scaffolding derive from
+the official `@deepseek-ai/dsh-web-search-deepseek` (MIT, © 2026 DeepSeek). See
+[LICENSE](./LICENSE).

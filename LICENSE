@@ -1,7 +1,14 @@
 MIT License
 
-Copyright (c) 2026 KaiChan — original work, @deepseek-ai/dsh-web-search-brave
-Copyright (c) 2026 nedzen — fork modifications
+Copyright (c) 2026 nedzen
+
+The `ctx.web` provider interface and module scaffolding (seam imports, the
+`resolveOptions`/`apply` shape, and the shared status codes) are taken from the
+official DeepSeek Harness provider `@deepseek-ai/dsh-web-search-deepseek`,
+which is MIT licensed, Copyright (c) 2026 DeepSeek. The Brave Search
+implementation — request construction, response mapping across web/news/videos,
+credential resolution and error handling — is original to this package, as are
+the timeout, request-spacing and retry controls described in the README.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
