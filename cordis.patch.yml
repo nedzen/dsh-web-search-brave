@@ -1,0 +1,11 @@
+# Brave Search provider plugin patch
+# Registers the Brave Search web search provider with the DSH web seam.
+
+- insert:
+    - id: web-search-brave
+      name: '@deepseek-ai/dsh-web-search-brave'
+      config:
+        apiKeyEnv: BRAVE_SEARCH_API_KEY
+        baseURL: https://api.search.brave.com/res/v1
+        maxResults: 10
+        searchType: web
