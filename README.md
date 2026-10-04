@@ -14,7 +14,9 @@ name and API, and fixes two reliability problems that can hang or disable `web_s
 inside a real agent session.
 
 > **Not affiliated with or endorsed by DeepSeek or the upstream author.** This is an
-> independent fork published under the original MIT license. Do not publish it to npm
+> independent fork published under the original MIT license. Upstream is
+> [cnChenKai/dsh-web-search-brave](https://github.com/cnChenKai/dsh-web-search-brave),
+> published on npm as `@deepseek-ai/dsh-web-search-brave`. Do not publish this fork to npm
 > under the `@deepseek-ai` scope — that scope belongs to the upstream project.
 
 - **Keywords:** DeepSeek Harness, dsh, dsh plugin, Brave Search API, web search provider,
@@ -161,16 +163,20 @@ check for two rows declaring this bundle.
 
 ## Compatibility
 
-This fork targets the **0.1.x** DeepSeek Harness line (`@deepseek-ai/dsh-*@^0.1.1-rc.2`
-peers). Upstream's published **0.2.x** already added an equivalent `searchTimeoutMs`, so if
-you are on dsh 0.2.x, prefer the official package; the fork exists for people who cannot
-move the whole harness to 0.2.x yet.
+**This fork exists for the 0.1.x line.** It targets `@deepseek-ai/dsh-*@^0.1.1-rc.2` peers.
+
+Upstream **0.2.4** ([cnChenKai/dsh-web-search-brave](https://github.com/cnChenKai/dsh-web-search-brave))
+already added an equivalent `searchTimeoutMs`, so **if you are on dsh 0.2.x, use upstream** —
+it is the maintained package and there is nothing better about this fork on that line. This
+fork is for sessions pinned to 0.1.x that cannot move the whole harness yet.
 
 ## Related
 
-- [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) — the upstream harness
+- [cnChenKai/dsh-web-search-brave](https://github.com/cnChenKai/dsh-web-search-brave) — **upstream package** (0.2.4, maintained)
+- [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) — the harness itself
 - [0xsline/awesome-deepseek-harness](https://github.com/0xsline/awesome-deepseek-harness) — ecosystem index
 - GitHub topic [`dsh-plugin`](https://github.com/topics/dsh-plugin) — more dsh plugins
+- Other `web_search` backends: [multi-provider](https://github.com/cinob/dsh-web-search-multi), [Exa](https://github.com/TonyDua/dsh-web-search-exa), [SearXNG](https://github.com/acdcgz/dsh-web-search-searxng)
 
 ## License
 
